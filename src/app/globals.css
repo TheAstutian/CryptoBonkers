@@ -1,5 +1,83 @@
 @import "tailwindcss";
 
+
+/*css for TipTap's simple editor*/
+@import '../styles/_keyframe-animations.scss';
+@import '../styles/_variables.scss';
+
+
+/* css for toggle button */
+
+.switcher {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+#switcherid {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  #switcherid {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  #switcherid:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  #switcherid:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  #switcherid:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+
+/* Hide default HTML checkbox */
+
+/*
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -23,4 +101,85 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+*/
+
+.circ {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; 
+}
+.rect {
+  width: 100%;
+  height: 20px;
+  border-radius: 12px;
+}
+
+.rectbig {
+  width: 100%;
+  height: 200px;
+  border-radius: 12px;
+}
+
+.skeleton-content {
+  background-color: #eee;
+  position: relative;
+}
+
+.skeleton-content::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 100%;
+  box-shadow: 0 0 80px 20px #fff;
+  animation: skeletonSlide 0.6s infinite ease-in-out;
+}
+
+@keyframes skeletonSlide {
+  from {
+    left: -100px;
+  }
+  to {
+    left: calc(100% + 100px);
+  }
+}
+
+
+
+.prose p {
+  /* Existing styles from Tailwind Typography or your own */
+  margin-top: 0.5em; /* Example: adjust as needed */
+  margin-bottom: 0.7em; /* Example: adjust as needed */
+
+  /* THIS IS THE CRUCIAL PART: Give empty paragraphs height */
+  min-height: 1em; /* Or whatever your line-height is, e.g., `line-height: 1.5;` */
+}
+
+.prose h1 {
+  font-size: 2em; /* Example values */
+  font-weight: 700;
+  margin-top: 1em;
+  margin-bottom: 0.75em;
+}
+
+.prose h2 {
+  font-size: 1.5em; /* Example values */
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.prose h3 {
+  font-size: 1.25em; /* Example values */
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.prose a {
+  color:#2196F3; 
+  text-decoration: none;
 }

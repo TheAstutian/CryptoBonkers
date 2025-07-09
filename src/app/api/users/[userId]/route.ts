@@ -1,4 +1,5 @@
 import { UserDB } from "@/lib/model";
+import connectDB from "@/lib/mongodb";
 import { NextResponse } from "next/server"
 import { z } from "zod";
 
@@ -20,7 +21,7 @@ export async function GET (request: Request, { params }: { params: Promise<{ use
     
     try {
         const userIDObject = new Object(userID.userId)
-
+        await connectDB()
         const userExists = await UserDB.findOne({
             _id: userIDObject
         })
@@ -122,7 +123,7 @@ export async function PUT  (request: Request) {
             message: "error turning iD to object", 
         }, {status: 400})
     }
-
+    await connectDB()
     const userExists = await UserDB.findOne({
         _id: idObject
     })
@@ -130,6 +131,7 @@ export async function PUT  (request: Request) {
         //update user here
 
         try {
+            await connectDB()
             const updatedUser = await UserDB.findOneAndUpdate(
                 {_id: idObject}, 
                 {$set: updateFields }, 

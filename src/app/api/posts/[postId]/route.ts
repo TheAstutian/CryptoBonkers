@@ -1,4 +1,5 @@
 import { ArticleDB, UserDB } from "@/lib/model";
+import connectDB from "@/lib/mongodb";
 import { NextResponse } from "next/server"
 import { z } from "zod";
 
@@ -20,7 +21,7 @@ export async function GET (request: Request, { params }: { params: Promise<{ pos
     const articleId = postId.postId
     
     try {
-        
+        await connectDB()
         const article = await ArticleDB.findOne({slug: articleId})
         if(!article){
             return NextResponse.json({
@@ -85,7 +86,7 @@ export async function PUT (request: Request) {
     
 
     const authorIdObject = new Object(author)
-
+    await connectDB()
     const isUserValid = await UserDB.findOne({_id: authorIdObject})
     if(!isUserValid){
         return NextResponse.json({
@@ -95,6 +96,7 @@ export async function PUT (request: Request) {
     }
 
     const postIdObject = new Object(id)
+    await connectDB()
     const isPostValid = await ArticleDB.findOne({_id: postIdObject})
     if(!isPostValid){
         return NextResponse.json({
@@ -159,6 +161,7 @@ export async function PUT (request: Request) {
             }
         }
     }
+    await connectDB()
     const updatedPost = await ArticleDB.findOneAndUpdate(
         {_id: postIdObject}, 
         {$set: updatedArticle }, 
@@ -192,12 +195,6 @@ export async function PUT (request: Request) {
   }
 
 
-
-  return NextResponse.json({
-    status: 400,
-    message: "Placeholder",
-    data: "gone through"
-  }, {status: 400})
 }
 
 export async function DELETE (request: Request, { params }: { params: Promise<{ postId: string }> }){
@@ -209,7 +206,7 @@ export async function DELETE (request: Request, { params }: { params: Promise<{ 
         if (!slug){
             return NextResponse.json({message: "Post Id required"}, {status:400})
         }
-
+        await connectDB()
        const deletedPost = await ArticleDB.findOneAndDelete({slug})
 
       if(!deletedPost){

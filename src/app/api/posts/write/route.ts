@@ -1,6 +1,7 @@
  import { ArticleDB } from "@/lib/model";
 import {z} from 'zod'; 
 import { NextResponse } from "next/server"; 
+import connectDB from "@/lib/mongodb";
 
 const getPostSchema = z.object({
     title: z.string().min(10,"Title cannot be less than 10 characters"), 
@@ -117,6 +118,7 @@ const newArticle = {
 //console.log('new article o', newArticle)
 
 try{
+    await connectDB()
     const checkDuplicate =  await ArticleDB.findOne({title: title})
     if(checkDuplicate){
         console.log("error adding new posts. Possible duplicate")
@@ -125,6 +127,7 @@ try{
             message: "Article already exists"
         }, {status:400})
     } 
+    await connectDB()
     const addNewArticle = await ArticleDB.insertOne(newArticle)
     if (!addNewArticle){
         console.log("Error adding new article")
@@ -149,12 +152,6 @@ try{
         message: "error posting new article", 
         error: error
     }, {status:400})
-}
-console.log('new a', newArticle)
-return NextResponse.json({
-    status:400,
-    message:"OK",
-    data:"This is a sample data "
-}, {status: 400})
+} 
 
 }

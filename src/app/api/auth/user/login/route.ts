@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import { UserDB } from "@/lib/model";
 import {z} from 'zod'; 
 import { NextResponse } from "next/server";
+import connectDB from "@/lib/mongodb";
 
 
 //data from client 
@@ -38,7 +39,9 @@ if (!validatedDataFromClient.success) {
 
 const { email, password} = validatedDataFromClient.data
 
+
  //check if email exists in database 
+  await connectDB()
  const userExists = await UserDB.findOne({email: email})
  
 if (!userExists) {

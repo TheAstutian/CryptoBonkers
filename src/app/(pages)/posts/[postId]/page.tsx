@@ -121,9 +121,9 @@ const getReadingTime = (content:string) =>{
   
 }
 
-const Post = async ({ params }: { params: { postId: string } }) => {
-    const postIdSlugs = (await params).postId; 
-  
+const Post = async ({ params }: { params: Promise<{ postId: string }> }) => {
+    const postIdSluger = await params 
+  const postIdSlugs = postIdSluger.postId
 const infoForFetch = separateSlugAndID(postIdSlugs)
 const postIdSlug = infoForFetch.slug
 

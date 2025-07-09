@@ -9,7 +9,7 @@ import { useContext, useEffect, FormEvent, useState } from "react"
 
 const API_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 
-export default function EditArticle ({ params }: {params: Promise<{postId: string}>}) {
+export default function EditArticle ({ params }: {params: Promise<{ postId: string;}>}) {
 
 const useAppContext = useContext(userContext)
 const contextValue = useAppContext

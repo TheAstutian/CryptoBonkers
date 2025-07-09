@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'; // Use next/navigation for client-side routing
 import React from 'react';
 
-const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
+
 interface DeleteButtonProps {
   slug: string;
 
@@ -18,7 +18,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ slug }) => {
       return; // User cancelled
     }
 
-    const API_URL = `${WEB_URL}/api/posts/${slug}`
+    const API_URL = `/api/posts/${slug}`
 
    try {
 

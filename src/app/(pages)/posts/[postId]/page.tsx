@@ -6,11 +6,12 @@ import Script from "next/script";
 import React from 'react';  
 import { body_text } from "@/app/fonts";
 import { ArticleDB } from "@/lib/model";
+import { UserDB } from "@/lib/model";
 import {JSDOM} from 'jsdom'
 import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
 
-const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
+
 //This function converts timestamp to D,M format, e.g Mar. 20
 const convertTimestampToDDMMYY = (timestamp: number | string): string => {
    
@@ -66,9 +67,30 @@ const relativeTime = (timeStamp:string) =>{
 }
 
 //fetches author using author's ID 
-const fetchAuthor = async(userID: string)=>{
+
+const fetchAuthor = async(userId: string) =>{
+
+     try {
+          const userIDObject = new Object(userId)
+  
+          const userExists = await UserDB.findOne({
+              _id: userIDObject
+          })
+          if(!userExists) {
+              return  
+          } 
+//         console.log(userExists)
+          return userExists
+  
+      }catch (error){
+          console.log(error) 
+      }
+
+}
+
+const fetchAuthor2 = async(userID: string)=>{
   try{
-    const API_URL = `${WEB_URL}/api/users/${userID}`
+    const API_URL = `/api/users/${userID}`
     const fetcher = await fetch(API_URL, {
       method: "GET"
     })
@@ -170,10 +192,10 @@ const readingTime = getReadingTime(post?.content)
             <p className=" w-full flex-initial text-sm italic ">{post?.summary}</p>
             <section className="pl-2 flex flex-row gap-5 ">
                 <div className=" ">
-               <Link href={`/users/${authorDetails?.data.id}`}> <img src={authorDetails?.data?.image} className="w-10 h-10 rounded-full"/></Link>
+               <Link href={`/users/${authorDetails?.id}`}> <img src={authorDetails?.image} className="w-10 h-10 rounded-full"/></Link>
                 </div>
                 <div>
-                    <p className="font-semibold text-gray-600 text-sm">{authorDetails.data.name}</p>
+                    <p className="font-semibold text-gray-600 text-sm">{authorDetails?.name}</p>
                     <p className="italic text-xs text-gray-600">{publishedTime} - {readingTime} </p>
                 </div>
 

@@ -5,15 +5,13 @@ import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor
 import { useRouter } from "next/navigation"
 import { useContext, useEffect, FormEvent, useState } from "react"
 
-const API_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
-
 export default function NewArticle () {
 
 const useAppContext = useContext(userContext)
 const contextValue = useAppContext
 const currentUser = contextValue?.currentUser
 const router = useRouter()
-const NEW_POST_ENDPOINT = `${API_URL}/api/posts/write`;
+const NEW_POST_ENDPOINT = `/api/posts/write`;
 
 const [error, setError] = useState(' ')
 const [postHtml, setPostHtml] = useState('')

@@ -2,7 +2,6 @@
 
 import {createContext, useState, useEffect, ReactNode} from 'react'; 
 
-const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 type User = {
     username: string
     email: string
@@ -25,7 +24,7 @@ interface UserContextProviderProps{
     children: ReactNode;
 }
 
-const API_LOGIN_ENDPOINT = /*process.env.NEXT_PUBLIC_API_URL + '/auth/user/login' || */ `${WEB_URL}/api/auth/user/login`;
+const API_LOGIN_ENDPOINT = /*process.env.NEXT_PUBLIC_API_URL + '/auth/user/login' || */ `/api/auth/user/login`;
 
 
 export function UserContextProvider ({ children }: UserContextProviderProps) {

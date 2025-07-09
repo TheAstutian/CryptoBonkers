@@ -6,7 +6,7 @@ import { useRouter} from 'next/navigation';
 import {useParams } from 'next/navigation'; 
 import Link from "next/link";
 
-const API_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
+
 
 type Author = {
     id: string 
@@ -42,7 +42,7 @@ const [error, setError] = useState<string | null> ("")
             if(storedUser){
                 try{
 
-                    const USER_API_ENDPOINT =  `${API_URL}/api/users/${userId}`;
+                    const USER_API_ENDPOINT =  `/api/users/${userId}`;
                    
                     const response = await fetch(USER_API_ENDPOINT, {
                         method: "GET"         
@@ -147,7 +147,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) =>{
         image: user.image, 
     };
     try {
-        const USER_API_ENDPOINT =  `${API_URL}/api/users/${userId}`;
+        const USER_API_ENDPOINT =  `/api/users/${userId}`;
         const response = await fetch (USER_API_ENDPOINT, {
             method: "PUT", 
             headers: {

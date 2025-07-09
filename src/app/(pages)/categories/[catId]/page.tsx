@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { fetchAuthor, Card } from "@/app/components/hero";
 
-const API_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
+
 const convertTimestampToDDMMYY = (timestamp: number | string): string => {
    
     const numericTimestamp = typeof timestamp === 'string' ? parseInt(timestamp, 10) : timestamp;
@@ -75,7 +75,7 @@ const [author, setAuthor] = useState<string>('')
         const catIDslug = await params; 
         const catIdSlugs = catIDslug.catId
         setCatName(catIdSlugs)
-        const FETCH_ARTICLES_API = `${API_URL}/api/categories/${catIdSlugs}`
+        const FETCH_ARTICLES_API = `/api/categories/${catIdSlugs}`
         const articles = await fetch(FETCH_ARTICLES_API, {method: 'GET'})
         const fetched_articles = await articles.json()
         const reversed = fetched_articles.data.reverse()

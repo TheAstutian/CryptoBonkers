@@ -6,12 +6,11 @@ import Link from "next/link";
 import { ArrowRightFromLine } from "lucide-react";
 import { userContext } from "../context/contextlibrary";
 
-const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 
  export const fetchAuthor = async(userID:string | { name: string; profileUrl: string; bio: string; } | undefined)=>{
 
   try{
-    const API_URL = `${WEB_URL}/api/users/${userID}`
+    const API_URL = `/api/users/${userID}`
     const fetcher = await fetch(API_URL, {
       method: "GET"
     })
@@ -65,7 +64,7 @@ useEffect(() => {
 const fetchPosts = async()=>{
   try{
 
-    const API_URL = `${WEB_URL}/api/posts`
+    const API_URL = `/api/posts`
     const fetcher = await fetch(API_URL, { method: "GET" })
     const articles = await fetcher.json()
     if(!articles || !articles.data){

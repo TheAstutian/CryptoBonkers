@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation"
 import { useContext, useEffect, FormEvent, useState } from "react"
 
 
-const API_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 
 export default function EditArticle ({ params }: {params: Promise<{ postId: string;}>}) {
 
@@ -20,7 +19,7 @@ const router = useRouter()
 const fetchArticle = async () =>{  
     const postIdSlug = await params
     const postIdSlugs = postIdSlug.postId;  
-    const FETCH_API_URL = `${API_URL}/api/posts/${postIdSlugs}`
+    const FETCH_API_URL = `/api/posts/${postIdSlugs}`
     const result = await fetch(FETCH_API_URL, {method: "GET"})
     const newArticle= await result.json()
     setCurrentPost(newArticle.data)
@@ -160,7 +159,7 @@ const handleSubmit= async (e:FormEvent<HTMLFormElement>)=>{
     const updated_article = {
         id, title, primary, secondary, image:image_url, hero, subhero, article, summary, post,  author
     }
-        const UPDATE_POST_API = `${API_URL}/api/posts/${postIdSlugs}`
+        const UPDATE_POST_API = `/api/posts/${postIdSlugs}`
         const response = await fetch ( UPDATE_POST_API, {
             method: "PUT", 
             headers: {
@@ -175,7 +174,7 @@ const handleSubmit= async (e:FormEvent<HTMLFormElement>)=>{
                 console.log('got here 3')
                 const result = await response.json(); 
                 console.log("Update is a success", result)
-                router.push(`${API_URL}/posts/${result.url}&${currentUser?.link? currentUser.link :''}`)
+                router.push(`/posts/${result.url}&${currentUser?.link? currentUser.link :''}`)
              
 
     }catch(err){

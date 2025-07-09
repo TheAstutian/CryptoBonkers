@@ -6,7 +6,6 @@ import { userContext } from "../context/contextlibrary";
 import {Twitter, Facebook, Linkedin, ArrowRightToLineIcon, NotebookPenIcon} from 'lucide-react'
 import { useContext } from "react";
 
-const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 
 export const SiteHeader = ()=>{
     
@@ -19,7 +18,7 @@ const logout = contextValue?.logout
 
     return (
         <header className={` p-2 flex flex-col ${headers.className}`}>
-            {currentUser&& <div className="absolute top-3 right-3 flex flex-row gap-2"><h1 className="font-bold hover:font-semibold cursor-pointer" ><Link href={`${WEB_URL}/users/${currentUser.link}`}> {currentUser.username}</Link></h1>  <h1 className="hover:font-bold cursor-pointer"><Link href='/posts/new'> <NotebookPenIcon /></Link></h1> <h1 onClick={logout} className="hover:font-bold cursor-pointer"><ArrowRightToLineIcon /></h1></div>}
+            {currentUser&& <div className="absolute top-3 right-3 flex flex-row gap-2"><h1 className="font-bold hover:font-semibold cursor-pointer" ><Link href={`/users/${currentUser.link}`}> {currentUser.username}</Link></h1>  <h1 className="hover:font-bold cursor-pointer"><Link href='/posts/new'> <NotebookPenIcon /></Link></h1> <h1 onClick={logout} className="hover:font-bold cursor-pointer"><ArrowRightToLineIcon /></h1></div>}
         {/* top section of header- social media links | site title | search, login and subscribe button */}
         <div className=" w-full sm:flex sm:flex-col  gap-3 py-3"> 
             <div className="flex flex-row gap-2"> 

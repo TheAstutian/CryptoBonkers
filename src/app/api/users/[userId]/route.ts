@@ -40,8 +40,6 @@ export async function GET (request: Request, { params }: { params: Promise<{ use
             bio: userExists.bio
         }
 
-        console.log('User fetched')
-
         return NextResponse.json({
             status: "OK", 
             data: userForClient

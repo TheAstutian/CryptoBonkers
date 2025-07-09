@@ -22,7 +22,7 @@ export async function GET () {
             data: allPosts
         })
     }catch (err){
-        console.log(err)
+        console.error(err)
         return NextResponse.json({
             status: 400,
             message: "Some error occurred", 

@@ -60,13 +60,7 @@ const relativeTime = (timeStamp:string) =>{
        }
   }
 
-  interface CategoryPageProps {
-    params: {
-        catId: string;
-    };
-  }
-
-export default function Category ({ params }: CategoryPageProps) {
+export default function Category ({ params }: {params: Promise<{ catId: string;}>}) {
 const [displayedArticles, setDisplayedArticles] = useState <Article []> ([])
 const [currentUserlink, setCurrentUserlink] = useState<string>('')
 const [catName, setCatName] = useState<string>('')
@@ -78,7 +72,8 @@ const [author, setAuthor] = useState<string>('')
     },[catName])
 
     const fetchArticles = async () =>{
-        const catIdSlugs = params.catId; 
+        const catIDslug = await params; 
+        const catIdSlugs = catIDslug.catId
         setCatName(catIdSlugs)
         const FETCH_ARTICLES_API = `${API_URL}/api/categories/${catIdSlugs}`
         const articles = await fetch(FETCH_ARTICLES_API, {method: 'GET'})

@@ -23,7 +23,7 @@ const blogSchema = new Schema ({
       summary: String, 
       featuredImage: {
         url: String,
-        alt: String,
+        alt: String, 
         width: Number,
         height: Number,
       },

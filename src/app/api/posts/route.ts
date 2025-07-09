@@ -4,10 +4,10 @@ import { ArticleDB } from "@/lib/model"
 export async function GET () { 
 
     try {
-        console.log('got here 0')
-        console.error('got here 0n error')
+/*        console.log('got here 0')
+        console.error('got here 0n error')*/
         const allPosts = await ArticleDB.find().sort({publishedAt: -1});
-        console.log('got here 1')
+        console.log('got here 1', allPosts,'?')
         if(!allPosts){
             return NextResponse.json({
                 status: 400,

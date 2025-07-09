@@ -14,7 +14,13 @@ type Author = {
 } 
 const API_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 
-const User =  ({ params }: { params: { userId: string } }) =>{
+interface PageProps {
+    params: {
+        userId: string
+    };
+  }
+
+const User =  ({ params }: PageProps) =>{
  
     const [author, setAuthor] = useState<Author | null>(null);
     const [authorizedUser, setAuthorizedUser] = useState (false)

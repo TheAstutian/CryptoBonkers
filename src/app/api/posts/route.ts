@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server"
 import { ArticleDB } from "@/lib/model"
+import connectDB from "@/lib/mongodb";
 
 export async function GET () { 
 
     try {
 /*        console.log('got here 0')
         console.error('got here 0n error')*/
+        await connectDB()
         const allPosts = await ArticleDB.find().sort({publishedAt: -1});
         console.log('got here 1', allPosts,'?')
         if(!allPosts){

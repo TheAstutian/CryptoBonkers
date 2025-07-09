@@ -20,6 +20,7 @@ export async function GET (request: Request, { params }: { params: Promise<{ pos
     const articleId = postId.postId
     
     try {
+        
         const article = await ArticleDB.findOne({slug: articleId})
         if(!article){
             return NextResponse.json({

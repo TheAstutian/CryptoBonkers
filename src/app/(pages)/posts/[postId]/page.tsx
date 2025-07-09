@@ -10,6 +10,7 @@ import { UserDB } from "@/lib/model";
 import {JSDOM} from 'jsdom'
 import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
+import connectDB from "@/lib/mongodb";
 
 
 //This function converts timestamp to D,M format, e.g Mar. 20
@@ -72,7 +73,7 @@ const fetchAuthor = async(userId: string) =>{
 
      try {
           const userIDObject = new Object(userId)
-  
+          await connectDB()
           const userExists = await UserDB.findOne({
               _id: userIDObject
           })
@@ -132,7 +133,7 @@ const Post = async ({ params }: { params: Promise<{ postId: string }> }) => {
   const postIdSlugs = postIdSluger.postId
 const infoForFetch = separateSlugAndID(postIdSlugs)
 const postIdSlug = infoForFetch.slug
-
+await connectDB()
 const currentPost = await ArticleDB.findOne({slug: postIdSlug}) //fetch article using slug
 const post = article_database.find(article => article.slug === postIdSlug) || currentPost
 

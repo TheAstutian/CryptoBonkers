@@ -5,13 +5,15 @@ export async function GET () {
 
     try {
         const allPosts = await ArticleDB.find().sort({publishedAt: -1});
-        
+        console.log('got here 1')
         if(!allPosts){
             return NextResponse.json({
                 status: 400,
                 message: "Server error",
             },{status:400})
         }
+        console.log('got here 2')
+        console.log('here 3', allPosts)
         return NextResponse.json({
             status:200, 
             message: "Article fetched", 

@@ -25,17 +25,14 @@ const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL as string
     return author.data.name || author.data
 
   }catch(err){
-
+    console.log(err)
   }
 }
-
-var newdb = article_database.slice().reverse()
 
 const Hero = () =>{
 const [featured_hero, set_featured_hero] = useState<Article | null>(null)
 const [allPosts, setallPosts] = useState<Article[]>([])
 const [subheroPosts, setSubheroPosts] = useState<Article[]>([])
-const [heroPosts, setHeroPosts] = useState([])
 const [heroAuthorName, setheroAuthorName] = useState ('')
 const [opinionArticles, setOpinionArticles] = useState<Article[]>([])
 const [guideArticles, setGuideArticles] = useState<Article[]>([])
@@ -66,7 +63,6 @@ useEffect(() => {
 
 
 const fetchPosts = async()=>{
-  let fetchedPosts : Article []
   try{
 
     const API_URL = `${WEB_URL}/api/posts`
@@ -84,7 +80,7 @@ const fetchPosts = async()=>{
     // --- Clear previous states before populating ---
     set_featured_hero(null);
     setSubheroPosts([]);
-    setHeroPosts([]);
+    
 
     let foundHero: Article | null = null;
     const tempSubheroPosts: Article[] = [];
@@ -208,7 +204,7 @@ const fetchPosts = async()=>{
           {subheroPosts.map((article:Article, index: number) =>{
             if (index> 2)
             return (
-              <div className="border-t border-black">
+              <div key={article.slug} className="border-t border-black">
                 <Card variant={"tertiary"} key={article.id} article={article} />
              </div> 
             )
@@ -228,7 +224,7 @@ const fetchPosts = async()=>{
         <div className="h-48">
         Newsletter Plus latest
         </div>
-          {allPosts.map((article:Article, index: number) =>{
+          {allPosts.map((article:Article) =>{
             return (
               <Card variant="secondary" key={article.id} article={article} />
             )
@@ -252,8 +248,8 @@ const fetchPosts = async()=>{
         <div className="flex overflow-x-auto flex-nowrap space-x-4">
           {
             opinionArticles.map((article:Article) =>(
-              <div className="flex-none overflow-hidden w-100 px-6">
-                <Card variant="full" article={article} />
+              <div key={article.slug} className="flex-none overflow-hidden w-100 px-6">
+                <Card variant="full" key={article.title} article={article} />
                 </div>
             ))
           }
@@ -271,8 +267,8 @@ const fetchPosts = async()=>{
               <div className="flex overflow-x-auto flex-nowrap space-x-4">
           {
             guideArticles.map((article:Article) =>(
-              <div className="flex-none overflow-hidden w-100 px-6">
-                <Card variant="full" article={article} />
+              <div key={article.slug} className="flex-none overflow-hidden w-100 px-6">
+                <Card variant="full" key={article.title} article={article} />
                 </div>
             ))
           }
@@ -323,11 +319,11 @@ export function convertTimestampToDDMMYY(timestamp: number | string): string {
     getAuthor()
   },[])
 
-  const {categories, slug, title, summary, author, featuredImage, publishedAt} = article; 
+  const {categories, slug, title, summary, featuredImage, publishedAt} = article; 
 
 
 const getAuthor = async () =>{
-  let author = await fetchAuthor(article.author)
+  const author = await fetchAuthor(article.author)
   if (author){
     return   getAuthorName(author)
   }

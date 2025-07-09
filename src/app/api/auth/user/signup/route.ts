@@ -21,6 +21,7 @@ try {
 return NextResponse.json({
     status: 400,
     message: "Invalid JSON body provided", 
+    error: error
 }, {status: 400})
 }
 
@@ -78,7 +79,8 @@ if (userExists) {
  }catch(err){
     return NextResponse.json({
         status: 400, 
-        message: 'Some error occured'
+        message: 'Some error occured',
+        error: err
     })
  } 
 

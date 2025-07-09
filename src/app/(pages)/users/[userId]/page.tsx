@@ -44,8 +44,8 @@ const User =  ({ params }: { params: { userId: string } }) =>{
                 }
             }
             // compare emails 
-       }catch(error: any){
-            console.error("Login API call error:", error);
+       }catch(error){
+            console.log("Login API call error:", error);
             
             return (
                 <div className="p-3 flex flex-col w-full h-[650px]">

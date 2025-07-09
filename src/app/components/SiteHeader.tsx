@@ -1,12 +1,10 @@
 "use client"
 
-import type { Metadata } from "next";
 import Link from "next/link";
-import { Roboto, Alegreya, Montserrat_Alternates } from "next/font/google";
-import {headers, title, navs} from '../fonts';
+import {headers, navs} from '../fonts';
 import { userContext } from "../context/contextlibrary";
 import {Twitter, Facebook, Linkedin, ArrowRightToLineIcon, NotebookPenIcon} from 'lucide-react'
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 

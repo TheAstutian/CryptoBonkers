@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { ArticleDB } from "@/lib/model"
 
-export async function GET (request: Request) { 
+export async function GET () { 
 
     try {
         const allPosts = await ArticleDB.find().sort({publishedAt: -1});

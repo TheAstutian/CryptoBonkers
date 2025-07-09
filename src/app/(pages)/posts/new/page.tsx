@@ -2,7 +2,6 @@
 
 import { userContext } from "@/app/context/contextlibrary"
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useContext, useEffect, FormEvent, useState } from "react"
 

@@ -68,15 +68,6 @@ export async function GET (request: Request, { params }: { params: { userId: str
         }, {status: 400})
 }
 
-type Author = {
-    id: string 
-    username: string
-    email: string
-    image: string
-    name: string
-    bio: string
-}
-
 const updateUserSchema = z.object({
     id: z.string(),
     username: z.string(),
@@ -85,10 +76,6 @@ const updateUserSchema = z.object({
     name: z.string(),
     bio: z.string().optional(), 
 })
-
-
-
-
 
 
 
@@ -118,7 +105,7 @@ export async function PUT  (request: Request) {
     
     const { id, email, name, username, image, bio} = validatedDataFromClient.data
 
-    const updateFields: { [key: string]: any } = {};
+    const updateFields: { [key: string]: string } = {};
     if (email !== undefined) updateFields.email = email;
     if (name !== undefined) updateFields.name = name;
     if (username !== undefined) updateFields.username = username;
@@ -162,29 +149,21 @@ export async function PUT  (request: Request) {
                     message: "User not found after initial check"
                 }, {status:404})
             }
-        }catch(error:any){
+        }catch(error){
             console.error("Error updating user:", error);
-            if (error.code === 11000) { // MongoDB duplicate key error code
                 return NextResponse.json({
                     status: 409, // Conflict
                     message: "A user with this username or email already exists.",
                 }, { status: 409 });
-        }
-
+        
+            }
     } if(!userExists){
         return NextResponse.json({
             status:400,
             message: "error occured"
         }, {status: 400})
     }
-
-    return NextResponse.json({
-        status: 400, 
-        message: "got here", 
-    }, {status:400})
-}
+ 
 }
 
-
-// 6814ab5b138b331b0a13d313
-
+ 

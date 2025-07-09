@@ -1,9 +1,7 @@
 "use client";
 
 import { FormEvent, useContext, useEffect, useState } from "react";
-//import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { userContext } from "@/app/context/contextlibrary";
 
 
@@ -34,7 +32,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email")
     const password = formData.get("password")    
-    const data = {email, password}
+    
 
     if(!email || !password){
         setError("Email and password are required")

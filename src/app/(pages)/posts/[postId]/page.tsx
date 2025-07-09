@@ -80,7 +80,7 @@ const fetchAuthor = async(userID: string)=>{
     } 
     return author   
   }catch(err){
-
+    console.log(err)
   }
 }
 
@@ -161,9 +161,7 @@ const readingTime = getReadingTime(post?.content)
         <meta property="og:description" content={post?.seo.ogDescription}/>
         <meta property="og:image" content={post?.seo.ogImage}/>
 
-        <Script type="application/Id+json">
-        {JSON.stringify(post?.seo.structuredData)}
-        </Script>
+      
 
     </Head>
     <article className=" px-2 lg:w-3/7 md:px-10 md:mx-10 lg:mx-auto gap-5 pb-10">
@@ -208,7 +206,7 @@ const readingTime = getReadingTime(post?.content)
             }
 
         return (
-          <div className="  border border-gray-100 mx-3 px-3 md:px-5 w-[250px] py-5 md:w-[350px] mb-5">
+          <div  key={item.title} className="border border-gray-100 mx-3 px-3 md:px-5 w-[250px] py-5 md:w-[350px] mb-5">
             <Link href={`/posts/${item.slug}&${infoForFetch.id}`} > 
             <img className='pb-5' src={item.featuredImage.url} />
             </Link>            
@@ -221,6 +219,9 @@ const readingTime = getReadingTime(post?.content)
         </div>
         
     </section>
+    <Script id="structured-data-script" type="application/Id+json">
+        {JSON.stringify(post?.seo.structuredData)}
+        </Script>
     </>
   );
 };

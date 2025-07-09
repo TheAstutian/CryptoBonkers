@@ -1,6 +1,6 @@
 "use client"
 
-import {createContext, useState, useEffect, useContext, ReactNode} from 'react'; 
+import {createContext, useState, useEffect, ReactNode} from 'react'; 
 
 const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 type User = {
@@ -28,7 +28,7 @@ interface UserContextProviderProps{
 const API_LOGIN_ENDPOINT = /*process.env.NEXT_PUBLIC_API_URL + '/auth/user/login' || */ `${WEB_URL}/api/auth/user/login`;
 
 
-export function UserContextProvider ({ children }: any) {
+export function UserContextProvider ({ children }: UserContextProviderProps) {
 
     const [currentUser, setCurrentUser] = useState <User | null> ( null)
     const [isLoading, setIsLoading] = useState (true)
@@ -48,7 +48,7 @@ export function UserContextProvider ({ children }: any) {
                     //console.log(storedUser, "user frostoratge")
                     setCurrentUser(userObject)
                 }catch(error){
-                   // console.error("Error parsing user from localstorage", error)
+                 console.error("Error parsing user from localstorage", error)
                     localStorage.removeItem('user')
                 }
             }
@@ -84,12 +84,14 @@ export function UserContextProvider ({ children }: any) {
                 return { message: result.message || "Login failed. Invalid credentials or server error." };
              }
 
-        }catch(error: any){
-            console.error("Login API call error:", error);
+        }catch(caughtError: unknown){
+            console.error("Login API call error:", caughtError);
             setIsLoading(false);
-            return { message: error.message || "An unexpected error occurred during login." };
+            if(caughtError instanceof Error) {
+                return { message: caughtError.message || "An unexpected error occurred during login." };
+            }
         }
-          
+        return { message: "An unexpected error occurred during login." };
 }
 
 

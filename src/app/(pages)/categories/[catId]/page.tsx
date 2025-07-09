@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import React from "react";
 import { fetchAuthor, Card } from "@/app/components/hero";
+import Image from "next/image";
 
 const API_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 const convertTimestampToDDMMYY = (timestamp: number | string): string => {
@@ -62,9 +63,9 @@ const relativeTime = (timeStamp:string) =>{
 
 export const Category = ({ params }: { params: { catId: string } }) =>{
 const [displayedArticles, setDisplayedArticles] = useState <Article []> ([])
-const [currentUserlink, setCurrentUserlink] = useState<String>('')
-const [catName, setCatName] = useState<String>('')
-const [author, setAuthor] = useState<String>('')
+const [currentUserlink, setCurrentUserlink] = useState<string>('')
+const [catName, setCatName] = useState<string>('')
+const [author, setAuthor] = useState<string>('')
 
 
     useEffect(()=>{
@@ -107,7 +108,7 @@ const [author, setAuthor] = useState<String>('')
                 <p className="text-sm text-gray-700 py-2 italic">{displayedArticles[0]?.summary}</p>
                 <div className="flex pt-2 flex-col p-1">
                  
-                    <p className="text-gray-500 italic text-sm md:mr-10">{relativeTime(displayedArticles[0].publishedAt)}</p>
+                    <p className="text-gray-500 italic text-sm md:mr-10">By {author} - {relativeTime(displayedArticles[0].publishedAt)}</p>
                 </div>
             </Link>
            
@@ -115,7 +116,7 @@ const [author, setAuthor] = useState<String>('')
 
         <div className="flex flex-col p-5 md:p-2 md:w-2/7 ">
         {displayedArticles.length>1? (
-        <div className="flex flex-col px-1 pb-3 mb-2">
+        <div className="flex flex-col px-1 pb-3 mb-2" >
              <Link href={`/posts/${displayedArticles[1]?.slug}&${currentUserlink}`}>
              <img className="pb-2 mx-auto" src={displayedArticles[1]?.featuredImage.url} />
              <p className=" md:text-sm hover:underline cursor-pointer">{displayedArticles[1]?.title}</p>
@@ -145,7 +146,7 @@ const [author, setAuthor] = useState<String>('')
             {displayedArticles.map((article:Article, index:number)=>{
                 if (index>2) {
                     return (
-                        <div className=" border border-gray-300 p-2 sm:p-5 sm:w-2/3 md:w-1/2 mx-auto ">
+                        <div className=" border border-gray-300 p-2 sm:p-5 sm:w-2/3 md:w-1/2 mx-auto " key={article.title}>
                           <p className="text-gray-500">{relativeTime(article.publishedAt)}</p>
                              <Card variant={"tertiary"} key={article.id} article={article} />
                         </div>    

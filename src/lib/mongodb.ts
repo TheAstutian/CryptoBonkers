@@ -1,4 +1,4 @@
-import mongoose , {Mongoose} from "mongoose";
+import mongoose  from "mongoose";
 
 const mongodbUri = process.env.MONGODB_URI as string 
 const mongodbUser = process.env.MONGODB_USER as string 

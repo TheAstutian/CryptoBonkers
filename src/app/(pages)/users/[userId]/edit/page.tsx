@@ -12,7 +12,7 @@ type Author = {
     id: string 
     username: string
     email: string
-    image: any
+    image: string 
     name: string
     bio: string
 }
@@ -33,8 +33,7 @@ const [error, setError] = useState<string | null> ("")
     const loadUser = async()=>{
 
         if (!userId) {
-            
-            console.error("User ID is not available.");
+            setError(error)
             router.push("/");  
             
         }
@@ -52,6 +51,7 @@ const [error, setError] = useState<string | null> ("")
                    
                     setUser(result.data)
                 }catch(error){
+                    console.log(error)
                     localStorage.removeItem('user')
                     router.push("/")
                 }
@@ -162,8 +162,10 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) =>{
         }
 
         const result = await response.json(); 
-        alert("Update is a success")
-        router.push(`/users/${userId}`)
+        if (result){
+            alert("Update is a success")
+            router.push(`/users/${userId}`)    
+        }
 
     }catch(error){
         console.log(error)
@@ -228,7 +230,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) =>{
                             </div>
                             <div className="flex flex-row">
                                 <div className="w-2/5">   </div>
-                                {user.image? <img className=" pt-3 max-w-3/5 " src={user.image }/> : <p>No image</p>}
+                                {user.image? <img className=" pt-3 max-w-3/5 " src={user?.image }/> : <p>No image</p>}
                             </div>
                            
                         </div>

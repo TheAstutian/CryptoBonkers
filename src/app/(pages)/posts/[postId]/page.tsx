@@ -88,23 +88,7 @@ const fetchAuthor = async(userId: string) =>{
 
 }
 
-const fetchAuthor2 = async(userID: string)=>{
-  try{
-    const API_URL = `/api/users/${userID}`
-    const fetcher = await fetch(API_URL, {
-      method: "GET"
-    })
-    const author = await fetcher.json()
 
-    if(!author){
-      
-      return 'Not available'
-    } 
-    return author   
-  }catch(err){
-    console.log(err)
-  }
-}
 
 //separates URLs into post slug and userID
 const separateSlugAndID =(inputString: string) => {

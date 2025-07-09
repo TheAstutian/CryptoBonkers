@@ -9,6 +9,22 @@ if(!mongodbUri) {
     throw new Error ("MongoDB URI not set")
 }
 
+
+export default async function connectDB(){
+ 
+    try{
+       mongoose.connect(mongodbUri, {
+        dbName: mongodbUser,
+        serverSelectionTimeoutMS: 30000, 
+        socketTimeoutMS: 45000,
+    })  
+       console.log("DATABASE CONNECTION SUCCESSFUL") 
+    }catch(err){
+       console.log(err)
+    }
+   }
+   
+   
 /*if(!mongodbUser) {
     throw new Error ("MongoDB User not set")
 }*/
@@ -48,14 +64,3 @@ async function connectDB(): Promise<Mongoose>{
 
 export default connectDB;  
 */
-
-export default async function connectDB(){
- 
- try{
-    mongoose.connect(mongodbUri, {dbName: mongodbUser})  
-    console.log("DATABASE CONNECTION SUCCESSFUL") 
- }catch(err){
-    console.log(err)
- }
-}
-

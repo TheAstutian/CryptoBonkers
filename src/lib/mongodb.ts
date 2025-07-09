@@ -13,7 +13,7 @@ if(!mongodbUri) {
 export default async function connectDB(){
  
     try{
-       mongoose.connect(mongodbUri, {
+      await mongoose.connect(mongodbUri, {
         dbName: mongodbUser,
         serverSelectionTimeoutMS: 30000, 
         socketTimeoutMS: 45000,

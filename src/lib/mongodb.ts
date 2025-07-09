@@ -7,11 +7,22 @@ if (!MONGODB_URI) {
   throw new Error("MongoDB URI not set");
 }
 
-let cached = (global as any).mongoose;
+type MongooseCache = {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+};
 
-if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
+declare global {
+  // eslint-disable-next-line no-var
+  var mongoose: MongooseCache | undefined;
 }
+
+// Ensure global.mongoose is always defined
+if (!global.mongoose) {
+  global.mongoose = { conn: null, promise: null };
+}
+
+const cached = global.mongoose!; // Non-null assertion since we just set it above
 
 export default async function connectDB() {
   if (cached.conn) return cached.conn;
@@ -21,8 +32,7 @@ export default async function connectDB() {
       bufferCommands: false,
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 30000,
-      socketTimeoutMS: 45000,
-      
+      socketTimeoutMS: 45000, 
     }).then((mongoose) => mongoose);
   }
   try {

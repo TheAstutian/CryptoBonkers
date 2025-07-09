@@ -78,7 +78,7 @@ const blogSchema = new Schema ({
   name: String 
 })
 
-let featuredArticlesSchema = new Schema (
+const featuredArticlesSchema = new Schema (
   {
     id: String,
     title: String,

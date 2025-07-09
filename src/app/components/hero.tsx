@@ -1,6 +1,6 @@
 "use client"
 import { useContext, useEffect, useState } from "react";
-import article_database, {Article} from "../db";
+import {Article} from "../db";
 import {weighted_title, body_text} from "../fonts";
 import Link from "next/link";
 import { ArrowRightFromLine } from "lucide-react";

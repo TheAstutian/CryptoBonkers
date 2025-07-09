@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import React from "react";
 import { fetchAuthor, Card } from "@/app/components/hero";
-import Image from "next/image";
 
 const API_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 const convertTimestampToDDMMYY = (timestamp: number | string): string => {

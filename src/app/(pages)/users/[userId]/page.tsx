@@ -14,16 +14,12 @@ type Author = {
 } 
 const API_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
 
-interface PageProps {
-    params: {
-        userId: string
-    };
-  }
 
-const User =  ({ params }: PageProps) =>{
+const User =  ({ params }: {params: Promise<{userId: string}>}) =>{
  
     const [author, setAuthor] = useState<Author | null>(null);
     const [authorizedUser, setAuthorizedUser] = useState (false)
+    const [userIdAuthorization, setuserIdAuthorization] = useState ('')
     
         useEffect (()=>{
             fetchUser()
@@ -32,7 +28,9 @@ const User =  ({ params }: PageProps) =>{
     const fetchUser = async ()=>{
 
         try{
-            const userId =  await params.userId; 
+            const userIds =  await params
+            const userId = userIds.userId; 
+            setuserIdAuthorization(userId)
             const USER_API_ENDPOINT =  `${API_URL}/api/users/${userId}`; 
             const response = await fetch(USER_API_ENDPOINT, {
                 method: "GET"         
@@ -74,7 +72,7 @@ const User =  ({ params }: PageProps) =>{
             <div className="flex flex-col px-10 gap-3 mx-auto ">
                 <div className="flex flex-row space-between">
                  <h2 className=" text-xl p-2 sm:text-3xl pb-5">{author.name}</h2> 
-                 {authorizedUser? <Link href={`${API_URL}/users/${params.userId}/edit`} className="p-3 cursor-pointer"><span className="p-2 border border-black rounded-xs hover:bg-gray-100">Edit Profile</span></Link>: null}
+                 {authorizedUser? <Link href={`${API_URL}/users/${userIdAuthorization}/edit`} className="p-3 cursor-pointer"><span className="p-2 border border-black rounded-xs hover:bg-gray-100">Edit Profile</span></Link>: null}
                  </div>
                 <img src={author.image} className="h-[200px] w-[200px] rounded-full"/>
                 <p className="pt-3 pb-20 sm:py-5 sm:w-1/2">

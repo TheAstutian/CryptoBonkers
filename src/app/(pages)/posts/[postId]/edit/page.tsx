@@ -8,13 +8,8 @@ import { useContext, useEffect, FormEvent, useState } from "react"
 
 
 const API_URL = process.env.NEXT_PUBLIC_WEB_URL as string 
-interface PageProps {
-    params: {
-        postId: string
-    };
-  }
 
-export default function EditArticle ({ params }: PageProps) {
+export default function EditArticle ({ params }: {params: Promise<{postId: string}>}) {
 
 const useAppContext = useContext(userContext)
 const contextValue = useAppContext
@@ -23,7 +18,8 @@ const router = useRouter()
 
 
 const fetchArticle = async () =>{  
-    const postIdSlugs =  params.postId;  
+    const postIdSlug = await params
+    const postIdSlugs = postIdSlug.postId;  
     const FETCH_API_URL = `${API_URL}/api/posts/${postIdSlugs}`
     const result = await fetch(FETCH_API_URL, {method: "GET"})
     const newArticle= await result.json()

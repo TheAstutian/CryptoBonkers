@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { ArticleDB } from "@/lib/model";
 
-export async function GET (request: Request, {params} : {params: {catId: string}}) {
+export async function GET (request: Request, {params} : {params: Promise<{catId: string}>}) {
 
     const categoryId = await params;
     const catId = categoryId.catId 

@@ -6,7 +6,7 @@ import { slugify } from "../write/route";
 const siteUrl = process.env.NEXT_PUBLIC_WEB_URL as string 
 
 
-export async function GET (request: Request, { params }: { params: { postId: string } }) {
+export async function GET (request: Request, { params }: { params: Promise<{ postId: string }> }) {
 
     const postId = await params;
     const articleId = postId.postId
@@ -191,7 +191,7 @@ export async function PUT (request: Request) {
   }, {status: 400})
 }
 
-export async function DELETE (request: Request, { params }: { params: { postId: string } }){
+export async function DELETE (request: Request, { params }: { params: Promise<{ postId: string }> }){
     
      try {
         const postId = await params;

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 import { z } from "zod";
 
 
-export async function GET (request: Request, { params }: { params: { userId: string } }) {
+export async function GET (request: Request, { params }: { params: Promise<{ userId: string } >}) {
 
     const userID = await params;
     const hexRegex = /^[0-9a-fA-F]{24}$/

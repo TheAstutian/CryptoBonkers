@@ -16,7 +16,7 @@ const getPostSchema = z.object({
 })
 
 const siteUrl = process.env.NEXT_PUBLIC_WEB_URL as string 
-export const slugify = (str:string)=>{
+ const slugify = (str:string)=>{
     str = str.replace(/^\s+|\s+$/g, ''); //trim leading or trailing white spaces
     str = str.toLowerCase();
     str = str.replace(/[^a-z0-9 -]/g, '') //removes non-alphanumeric characters

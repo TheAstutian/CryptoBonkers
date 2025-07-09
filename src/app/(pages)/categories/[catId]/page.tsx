@@ -60,7 +60,7 @@ const relativeTime = (timeStamp:string) =>{
        }
   }
 
-export const Category = ({ params }: { params: { catId: string } }) =>{
+export default function Category ({ params }: { params: { catId: string } }) {
 const [displayedArticles, setDisplayedArticles] = useState <Article []> ([])
 const [currentUserlink, setCurrentUserlink] = useState<string>('')
 const [catName, setCatName] = useState<string>('')
@@ -162,5 +162,4 @@ const [author, setAuthor] = useState<string>('')
     )
 }
 
-export default Category; 
 
